@@ -2,8 +2,9 @@ import unittest
 from HTMLTestRunnerNew import HTMLTestRunner
 from Website.test_case.model.function import *
 import time
-report_dir ='./test_report'
-test_dir = './test_case'
+report_dir = os.path.dirname(os.path.abspath(__file__))+r'\test_report'
+test_dir = os.path.dirname(os.path.abspath(__file__))+r'\test_case'
+
 
 print('start run test case....')
 discover=unittest.defaultTestLoader.discover(test_dir,pattern='test_login.py')

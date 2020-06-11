@@ -2,12 +2,14 @@ import unittest
 from HTMLTestRunnerNew import HTMLTestRunner
 import time
 import smtplib                         # 发送邮件模块
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText   # 定义邮件内容
 from email.header import Header        # 定义邮件标题
 import os
 
 
-def inser_img(driver, filename):
+def insert_img(driver, filename):
     # 获取当前模块所在路径
     func_path = os.path.dirname(__file__)
     # print("func_path is %s" %func_path)
@@ -41,7 +43,7 @@ def latest_report(report_dir):
     print("The latest report is:" + lists[-1])
 
     file = os.path.join(report_dir, lists[-1])
-    print(file)
+    # print(file)
     return file
 
 def send_mail(latest_report):
@@ -59,10 +61,17 @@ def send_mail(latest_report):
 
     subject = '自动化测试报告'
 
-    msg = MIMEText(mail_content,'html','utf-8')
+    msg = MIMEMultipart()
     msg['Subject'] = Header(subject,'utf-8')
     msg['From'] = sender
     msg['To'] = receives
+    msg['date'] = time.strftime('%a, %d %b %Y %H:%M:%S %z')
+    text_msg = MIMEText('自动化测试报告','plain','utf-8')
+    msg.attach(text_msg)
+    file_msg=MIMEApplication(mail_content)
+    file_msg.add_header('content-disposition','attchment',filename='自动化测试报告.html')
+
+    msg.attach(file_msg)
 
     smtp = smtplib.SMTP_SSL(smtpserver,465)
     smtp.helo(smtpserver)
@@ -76,10 +85,7 @@ def send_mail(latest_report):
 
 
 
-    # h获取最新测试报告
-    latest_report = latest_report(report_dir)
-    # 发送邮件报告
-    send_mail(latest_report)
+
 
 
 

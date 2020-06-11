@@ -15,8 +15,10 @@ class LoginTest(myunit.StartEnd):
 
 
         #断言
-        function.inser_img(self.driver, 'QQMail_login_normal.png')
+
         self.assertTrue(po.LoginPass_logo())
+        function.insert_img(self.driver, 'QQMail_login_normal.png')
+        self.driver.quit()
 
         print("test_login1_normal is test end!")
 
@@ -26,8 +28,10 @@ class LoginTest(myunit.StartEnd):
         username = '454216847'
         password = '123456'
         po.Login_action(username, password)
-        function.inser_img(self.driver,'QQMail_login_fail.png')
-        self.assertEqual(po.LoginFail_hint(),'你输入的帐号或密码不正确，请重新输入。')
+        self.assertEqual(po.LoginFail_hint(), '你输入的帐号或密码不正确，请重新输入。')
+        function.insert_img(self.driver, 'QQMail_login_fail.png')
+
+        self.driver.quit()
         print("test_login1_fail is test end!")
 
 if __name__ == '__main__':

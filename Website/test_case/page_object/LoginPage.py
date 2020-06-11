@@ -15,7 +15,7 @@ class LoginPage(Page):
         self.find_element(*self.username_loc).send_keys(username)
         self.find_element(*self.password_loc).send_keys(password)
         self.find_element(*self.loginButtonSubmit_loc).click()
-
+        time.sleep(5)
 
     LoginPass_loc = (By.ID,'imglogo')
     LoginFail_loc=(By.ID,'err_m')
