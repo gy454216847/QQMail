@@ -1,6 +1,10 @@
+import os
+
 from selenium import webdriver
 
-driver = webdriver.Chrome()
+option = webdriver.ChromeOptions()
+option.add_argument("headless")
+driver = webdriver.Chrome(chrome_options=option)
 driver.get('https://mail.qq.com/')
 driver.switch_to.frame('login_frame')
 driver.find_element_by_id('u').send_keys('454216847')
