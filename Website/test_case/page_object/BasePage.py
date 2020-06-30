@@ -1,9 +1,14 @@
 from time import sleep
+import yaml,os
+path=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))+"\\test_data\\page_data.yaml"
 class Page():
 
     def __init__(self,driver):
         self.driver=driver
-        self.url = 'https://mail.qq.com/'
+        self.file=open(path,"r",encoding="utf-8")
+        self.data=yaml.load(self.file)
+        self.file.close()
+        self.url = self.data['url']
         self.timeout = 20
 
     def _open(self,url):
@@ -22,3 +27,5 @@ class Page():
     def find_element(self,*loc):
         return self.driver.find_element(*loc)
 
+if __name__ == '__main__':
+    print(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
