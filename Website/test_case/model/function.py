@@ -1,11 +1,11 @@
 import unittest
 from HTMLTestRunnerNew import HTMLTestRunner
 import time
-import smtplib                         # 发送邮件模块
+import smtplib  # 发送邮件模块
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText   # 定义邮件内容
-from email.header import Header        # 定义邮件标题
+from email.mime.text import MIMEText  # 定义邮件内容
+from email.header import Header  # 定义邮件标题
 import os
 
 
@@ -46,8 +46,9 @@ def latest_report(report_dir):
     # print(file)
     return file
 
+
 def send_mail(latest_report):
-    f=open(latest_report,'rb')
+    f = open(latest_report, 'rb')
     mail_content = f.read()
     f.close()
 
@@ -62,31 +63,23 @@ def send_mail(latest_report):
     subject = '自动化测试报告'
 
     msg = MIMEMultipart()
-    msg['Subject'] = Header(subject,'utf-8')
+    msg['Subject'] = Header(subject, 'utf-8')
     msg['From'] = sender
     msg['To'] = receives
     msg['date'] = time.strftime('%a, %d %b %Y %H:%M:%S %z')
-    text_msg = MIMEText('自动化测试报告','plain','utf-8')
+    text_msg = MIMEText('自动化测试报告', 'plain', 'utf-8')
     msg.attach(text_msg)
-    file_msg=MIMEApplication(mail_content)
-    file_msg.add_header('content-disposition','attchment',filename='自动化测试报告.html')
+    file_msg = MIMEApplication(mail_content)
+    file_msg.add_header('content-disposition', 'attchment', filename='自动化测试报告.html')
 
     msg.attach(file_msg)
 
-    smtp = smtplib.SMTP_SSL(smtpserver,465)
+    smtp = smtplib.SMTP_SSL(smtpserver, 465)
     smtp.helo(smtpserver)
     smtp.ehlo(smtpserver)
-    smtp.login(user,password)
+    smtp.login(user, password)
 
     print("Start send email....")
-    smtp.sendmail(sender,receives,msg.as_string())
+    smtp.sendmail(sender, receives, msg.as_string())
     smtp.quit()
     print("Send email end")
-
-
-
-
-
-
-
-

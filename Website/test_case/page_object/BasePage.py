@@ -1,6 +1,6 @@
 from time import sleep
 import yaml,os
-path=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))+"\\test_data\\page_data.yaml"
+path=os.path.dirname(os.getcwd())+"\\test_data\\page_data.yaml"
 class Page():
 
     def __init__(self,driver):
@@ -28,4 +28,4 @@ class Page():
         return self.driver.find_element(*loc)
 
 if __name__ == '__main__':
-    print(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    print(os.path.dirname(os.path.dirname(os.getcwd())))

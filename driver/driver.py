@@ -1,5 +1,6 @@
 from selenium import webdriver
 
+
 def browser():
     # option = webdriver.ChromeOptions()
     # option.add_argument("headless")
@@ -7,6 +8,7 @@ def browser():
     driver = webdriver.Chrome()
     driver.implicitly_wait(5)
     return driver
+
 
 if __name__ == '__main__':
     browser()

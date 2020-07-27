@@ -1,24 +1,25 @@
 import csv
 import os
 import unittest
-from Website.test_case.model import function,myunit
+from Website.test_case.model import function, myunit
 from Website.test_case.page_object.LoginPage import LoginPage
 import time
+
 
 class LoginTest(myunit.StartEnd):
 
     def test_login1_normal(self):
         global username, password
         print('test_login_normal is start....')
-        po=LoginPage(self.driver)
+        po = LoginPage(self.driver)
         test_data = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + r'/test_data/Normal_Login.csv'
-        data = csv.reader(open(test_data,'r'))
+        data = csv.reader(open(test_data, 'r'))
         for user in data:
             username = user[0]
             password = user[1]
-        po.Login_action(username,password)
+        po.Login_action(username, password)
 
-        #断言
+        # 断言
         self.assertTrue(po.LoginPass_logo())
         function.insert_img(self.driver, 'QQMail_login_normal.png')
         self.driver.quit()
@@ -40,4 +41,3 @@ class LoginTest(myunit.StartEnd):
 
         self.driver.quit()
         print("test_login1_fail is test end!")
-
